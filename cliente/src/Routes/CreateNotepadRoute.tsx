@@ -12,7 +12,7 @@ const zo =useZorm('create-notepad',notepadSchema, {
     async onValidSubmit(event){
         event.preventDefault();
         const response = await api.post('/notepads', event.data);
-        if(response.data.id=== true) {
+        if(response.data.id) {
             toast(`Seu notepad foi enviado com sucesso!`);
             navigate('/');
         } else{

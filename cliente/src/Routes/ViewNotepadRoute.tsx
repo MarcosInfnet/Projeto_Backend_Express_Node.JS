@@ -34,7 +34,7 @@ export function ViewNotepadRoute() {
 
     async function deleteNotepad() {
         const response = await api.delete(`/notepads/${params.id}`);  
-        if(response.data.id=== true) {
+        if(response.data.id) {
             toast(`O notepad #${notepad.id} foi deletado!`);
             navigate("/");
         } else {

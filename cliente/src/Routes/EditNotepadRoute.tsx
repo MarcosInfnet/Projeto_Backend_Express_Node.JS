@@ -17,8 +17,8 @@ subtitlePlaceholder: "Editar o subtitulo",
 contentPlaceholder: "Editar o conteudo",
 buttonSubmit: "Enviar",
 submitSuccess: "O notepad foi editado com sucesso!",
-submitFail:"Hove um erro ao editar o notepad!"
-}
+submitFail:"Hove um erro ao editar o notepad!",
+};
 
 const initialNotepad = {
     id: 0,
@@ -35,12 +35,12 @@ export function EditNotepadRoute() {
     const navigate = useNavigate();
     const [InitialFormState, setInitialFormState] = useState(initialNotepad);
 
-    const zo =useZorm('edit-notepad', notepadSchema, {
+    const zo =useZorm("edit-notepad", notepadSchema, {
         async onValidSubmit(event) {
             event.preventDefault();
             const response = await api.patch(`/notepads/ ${params.id}`, event.data);
-            if(response.data.id=== true) {
-                toast(text.submitSuccess);
+            if(response.data.id) {
+                toast(text.submitSuccess);  
                 navigate(`/ver-notepad/ ${params.id}`);
             } else{
                 toast(text.submitFail);  
@@ -48,7 +48,7 @@ export function EditNotepadRoute() {
 
         },
     });
-   
+ 
     async function loadNotepad() {
    
         const response = await api.get(`/notepads/${params.id}`);
@@ -58,10 +58,12 @@ export function EditNotepadRoute() {
     useEffect(() => {
         loadNotepad();
 
-    },[]);
+    },[params.id]);
 
 
-    return <Card className="p-1 bg-amber-100 my-1 md:max-w-screen-md md:mx-auto rounded-lg shadow flex flex-col"> 
+    return (
+    
+    <Card className="p-1 bg-amber-100 my-1 md:max-w-screen-md md:mx-auto rounded-lg shadow flex flex-col"> 
             <Breadcrumbs links={[
                 {href: '/', label:'Home'},
                 {href:`/ver-notepad/${params.id}`, label:`/ver-notepad/#${params.id}`},
@@ -96,5 +98,7 @@ export function EditNotepadRoute() {
                     <Button type="submit">{text.buttonSubmit}</Button>
                 </form>
             </div>
-            </Card>;
+            </Card>
+        );
+
 }
