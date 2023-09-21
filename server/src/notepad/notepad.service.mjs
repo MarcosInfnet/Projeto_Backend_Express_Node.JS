@@ -1,5 +1,7 @@
 import { promises as fsp } from "fs";
+import { db } from "../db.mjs";
 import * as jsonService from "../json/json.service.mjs";
+// checando a aula do dia 31AUG vi q nesta pasta esta faltando os imports de create e update notepad schema
 
 const notepadsPath = "/Users/marco/Projeto_Backend_Express_Node.JS/server/data/notepads/";  
 const notepadLatestIdPath = "./data/notepadLatestId.json"; 
@@ -58,8 +60,10 @@ export async function createNotepad(notepad) {
 }
 
 export async function readNotepad(id) {
-  const notepad = await jsonService.readJson(`${notepadsPath}/${id}.json`);
+  const notepad = db.prepare(/* sql*/ `select * from notepads where id=?`).get(id); // Lendo todos od notepads salvos na tabela notepds
   return notepad;
+  // const notepad = await jsonService.readJson(`${notepadsPath}/${id}.json`);
+  // return notepad;
 }
 export async function updateNotepad(id, partialNotepad) {
   const path = `${notepadsPath}/${id}.json`;
