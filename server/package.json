@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon src/index.mjs",
-    "seed:notepad": "node src/notepad/notepad.seed.mjs "
+    "seed:orkut": "node src/post/post.seed.mjs "
   },
   "repository": {
     "type": "git",

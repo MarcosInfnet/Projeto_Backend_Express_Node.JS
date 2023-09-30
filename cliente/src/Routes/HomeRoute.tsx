@@ -5,34 +5,34 @@ import {Kudos} from "../components/Kudos";
 import { AiOutlineLoading3Quarters as LoadBar} from 'react-icons/Ai'
 import { Card } from "../components/Card";
 
-const initialNotepadsList = {
+const initialPostsList = {
     count: 0,
-    notepads:[],
+    posts:[],
 };
 const initialLoading = true;
 
 export function HomeRoute(){
 
-const [ notepadsList , setnotepadsList ] = useState(initialNotepadsList);
+const [ postsList , setPostsList ] = useState(initialPostsList);
 const [ loading, setLoading] = useState(initialLoading);
 
-async function loadNotepads(){
-    const response = await api.get("/notepads");
-    const nextNotepads = response.data;
+async function loadPosts(){
+    const response = await api.get("/posts");
+    const nextPosts = response.data;
     // console.log(response);
-    // console.log(nextNotepads);
-    setnotepadsList(nextNotepads);
+    // console.log(nextPosts);
+    setPostsList(nextPosts);
 }
 
     useEffect(() => {
-        loadNotepads();
+        loadPosts();
     },[ ]);
 
     useEffect(() => {
-        if(notepadsList.notepads.length >0) {
+        if(postsList.posts.length >0) {
             setLoading(false);
         }
-    },[notepadsList]);
+    },[postsList]);
 
     const [checked,setChecked] = useState(false);
 
@@ -49,22 +49,19 @@ async function loadNotepads(){
     
     <Card className ={`p-1 bg-amber-100 my-1 md:max-w-screen-md md:mx-auto rounded-lg shadow flex relative   ${checked ? 'flex-row text-green-400 w-full flex-wrap gap-x-96':'py-10  grid grid-cols-3 gap-2 place-content-start w-full'}`}>
         
-        {notepadsList.notepads.map(notepad => {
+        {postsList.posts.map(post => {
         
         return (
 
         <div className={`flex relative flex-row flex-wrap mx-2 ${checked ? 'flex-row mx-4 ':'flex-col'}`}>
             
-            <div key={notepad.id} className="p-2 bg-amber-100 my-2 md:max-w-screen-md md:mx-auto rounded-lg shadow h-auto">
+            <div key={post.id} className="p-2 bg-amber-100 my-2 md:max-w-screen-md md:mx-auto rounded-lg shadow h-auto">
                 
-                <span className="text-gray-500 mb-1 flex flex-wrap">#{notepad.id}</span>
-                <span className="text-md text-gray-500 leading-tight mb-2">{new Date(notepad.createdAt).toLocaleDateString()}</span>
-                <p className='text-md leading-tight mb-1'>{notepad.creator}</p> 
-                <h2 className='text-lg font-bold leading-tight mb-1'>{notepad.title}</h2>
-                <p className='text-md leading-tight mb-1'>{notepad.subtitle}</p>
-                <p className='text-md leading-tight mb-5 overflow-hidden truncate w-48'>{notepad.content}</p>
+                <span className="text-gray-500 mb-1 flex flex-wrap">#{post.id}</span>
+                <span className="text-md text-gray-500 leading-tight mb-2">{new Date(post.created_at).toLocaleDateString()}</span>
+                <p className='text-md leading-tight mb-5 overflow-hidden truncate w-48'>{post.content}</p>
                 <div className="flex justify-end">
-                <Kudos className="flex content-end" to={`${notepad.id}`}/>
+                <Kudos className="flex content-end" to={`${post.id}`}/>
                 </div>   
             </div>
         </div>

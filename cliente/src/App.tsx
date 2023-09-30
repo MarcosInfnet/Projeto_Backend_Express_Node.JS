@@ -1,9 +1,9 @@
 import {AppBar} from "./components/AppBar";
 import {HomeRoute} from "./Routes/HomeRoute";
 import {BrowserRouter,Routes, Route} from 'react-router-dom';
-import {CreateNotepadRoute} from "./Routes/CreateNotepadRoute";
-import {ViewNotepadRoute} from "./Routes/ViewNotepadRoute";
-import { EditNotepadRoute } from "./Routes/EditNotepadRoute";
+import {CreatePostRoute} from "./Routes/CreatePostRoute";
+import {ViewPostRoute} from "./Routes/ViewPostRoute";
+import { EditPostRoute } from "./Routes/EditPostRoute";
 
 
 export default function App() {
@@ -13,9 +13,9 @@ export default function App() {
        <AppBar/>
         <Routes>
           <Route path="/" element={<HomeRoute/>} />
-          <Route path="/criar-notepad" element={<CreateNotepadRoute/>} />
-          <Route path="/ver-notepad/:id" element={<ViewNotepadRoute/>} />
-          <Route path="/editar-notepad/:id" element={<EditNotepadRoute/>} />
+          <Route path="/criar-publicação" element={<CreatePostRoute/>} />
+          <Route path="/ver-publicação/:id" element={<ViewPostRoute/>} />
+          <Route path="/editar-publicação/:id" element={<EditPostRoute/>} />
         </Routes>
     </div>
   </BrowserRouter>

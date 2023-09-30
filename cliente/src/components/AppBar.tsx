@@ -12,7 +12,7 @@ export function AppBar() {
         <Link to="/">
             <Logo className="text-black text-2xl"/>
         </Link>
-        <h1 className="text-gray-700 text-xl font-bold uppercase">Treads</h1>
+        <h1 className="text-gray-700 text-xl font-bold uppercase">Orkut</h1>
         <Link to="/" className='text-blue-400 hover:text-blue-500 hover:underline font-bold hidden md:block'>
             Pagina Inicial
         </Link>
@@ -21,7 +21,7 @@ export function AppBar() {
         </Link>
     </div>
     <div>
-    <LinkButton to="/criar-notepad" className='bg-green-800 hover:bg-green-950 text-slate-50 uppercase py-1 px-2 rounded-md font-bold m-1' >Criar notepad</LinkButton>
+    <LinkButton to="/criar-publicação" className='bg-green-800 hover:bg-green-950 text-slate-50 uppercase py-1 px-2 rounded-md font-bold m-1' >Criar publicação</LinkButton>
     </div>
   </header>
 
