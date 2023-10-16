@@ -1,26 +1,29 @@
 import { useState, useEffect } from "react";
 import {api} from "../api";
-import {Toggle1} from "../components/Toggle1";
-import {Kudos} from "../components/Kudos";
+// import {Toggle1} from "../components/Toggle1";
+// import {Kudos} from "../components/Kudos";
 import { AiOutlineLoading3Quarters as LoadBar} from 'react-icons/Ai'
 import { Card } from "../components/Card";
+import { Link } from "react-router-dom";
+
 
 const initialPostsList = {
     count: 0,
     posts:[],
 };
 const initialLoading = true;
+const initialSearch = " ";
+const initialOrder = "desc";
 
 export function HomeRoute(){
-
 const [ postsList , setPostsList ] = useState(initialPostsList);
 const [ loading, setLoading] = useState(initialLoading);
+const [ search , setSearch] = useState(initialSearch);
+const [order , setOrder] = useState(initialOrder);
 
 async function loadPosts(){
-    const response = await api.get("/posts");
+    const response = await api.get("/posts" , {params: {search, order: order },});
     const nextPosts = response.data;
-    // console.log(response);
-    // console.log(nextPosts);
     setPostsList(nextPosts);
 }
 
@@ -29,45 +32,68 @@ async function loadPosts(){
     },[ ]);
 
     useEffect(() => {
+        loadPosts();
+    },[ search ]);
+
+    useEffect(() => {
+        loadPosts();
+    },[ order ]);
+
+
+    useEffect(() => {
         if(postsList.posts.length >0) {
             setLoading(false);
         }
     },[postsList]);
 
-    const [checked,setChecked] = useState(false);
+    
 
-    return <header className="flex flex-col justify-between max-w-screen-md md:mx-auto" >
+    return( <header className="flex flex-col justify-between max-w-screen-md md:mx-auto" >
     
     {loading &&
     <div className="flex absolute py-7 top-18 left-5">
         <LoadBar className="text-4xl animate-spin"/>
     </div>}
+      
     
-    <div className="flex absolute py-7 top-18 right-5">
-    <Toggle1 checked={checked} onClick={()=> setChecked(true)}/>
-    </div>
-    
-    <Card className ={`p-1 bg-amber-100 my-1 md:max-w-screen-md md:mx-auto rounded-lg shadow flex relative   ${checked ? 'flex-row text-green-400 w-full flex-wrap gap-x-96':'py-10  grid grid-cols-3 gap-2 place-content-start w-full'}`}>
-        
-        {postsList.posts.map(post => {
+    <Card className ={'p-1 bg-amber-100 my-1 md:max-w-screen-md md:mx-auto rounded-lg shadow '}>
+        <div className="flex">
+            <input  type="search" placeholder="Pesquisa do orkut..." className="flex-1 border-blue-500 focus:border-pink-600 rounded-lg mr-2 border-2 outline-none" 
+            value={search} onChange={(event) =>setSearch(event.target.value)}/>
+            <select className="flex-2 bg-white border-blue-500 rounded-lg border-2" onChange={(event) =>setOrder(event.target.value)}>
+                <option value="desc">Mais recentes</option>
+                <option value="asc">Mais antigas</option>
+            </select>
+
+        </div>
+        {postsList.posts.length === 0 && loading === false && 'Nenhum resultado encontrado'}
+        {postsList.posts.map((post) => {
         
         return (
-
-        <div className={`flex relative flex-row flex-wrap mx-2 ${checked ? 'flex-row mx-4 ':'flex-col'}`}>
-            
-            <div key={post.id} className="p-2 bg-amber-100 my-2 md:max-w-screen-md md:mx-auto rounded-lg shadow h-auto">
-                
-                <span className="text-gray-500 mb-1 flex flex-wrap">#{post.id}</span>
-                <span className="text-md text-gray-500 leading-tight mb-2">{new Date(post.created_at).toLocaleDateString()}</span>
-                <p className='text-md leading-tight mb-5 overflow-hidden truncate w-48'>{post.content}</p>
-                <div className="flex justify-end">
-                <Kudos className="flex content-end" to={`${post.id}`}/>
-                </div>   
+        <div key={post.id} className={'flex relative flex-col my-4 border-b'}> 
+            <div   className="flex items-center gap-1 ">
+            <Link to={`/perfil/${post.user_id}`}>
+                <img src={post.user_avatar}alt={`Foto de ${post.user_first_name} ${post.user_last_name}`} className="w-[48px] h-[48px] rounded-full" />
+              </Link>
+              <div className="flex flex-col"> 
+                <Link to={`/perfil/${post.user_id}`} className="text-blue-600 hover:text-blue-800 hover:underline font-bold">
+                  {post.user_first_name} {post.user_last_name}
+                </Link>
+                <span className="text-sm text-gray-500"> {new Date(post.created_at).toLocaleDateString()} </span>
+              </div>
             </div>
+            <Link to={`/ver-publicação/${post.id}`} className="cursor-pointer block" >
+              <p>{post.content}</p>
+            </Link>
+
         </div>
-       )})}
+       );})}
 
     </Card>
     </header>
-
+    );
     }
+
+
+
+

@@ -11,7 +11,7 @@ export function LinkButton({ children, className ='', to}: LinkButtonProps){
     return(
         <Link 
         to = {to}
-        className={`bg-green-800 hover:bg-green-950 text-slate-50 uppercase py-1 px-2 rounded-md font-bold m-1 ${className}`}>
+        className={`bg-blue-400 hover:bg-blue-650 text-slate-50 uppercase py-1 px-2 rounded-md font-bold m-1 ${className}`}>
         {children}
         </Link>)
 }

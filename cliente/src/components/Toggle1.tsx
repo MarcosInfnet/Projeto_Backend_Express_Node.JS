@@ -1,5 +1,5 @@
 
-import { HiOutlineViewList as ListView} from 'react-icons/Hi';
+/*import { HiOutlineViewList as ListView} from 'react-icons/Hi';
 
 interface ToggleProps{
     checked: boolean;
@@ -54,10 +54,4 @@ export function Toggle1({checked,onClick}:ToggleProps) {
     </div>)
 }
 
-
-
-
-
-
-
-
+*/

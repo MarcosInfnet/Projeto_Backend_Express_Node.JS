@@ -28,7 +28,7 @@ const initialPost = {
 export function EditPostRoute() {
     const params = useParams();
     const navigate = useNavigate();
-    const [InitialFormState, setInitialFormState] = useState(initialPost);
+    const [initialFormState, setInitialFormState] = useState(initialPost);
 
     const zo =useZorm("edit-post", postSchema, {
         async onValidSubmit(event) {
@@ -45,14 +45,12 @@ export function EditPostRoute() {
     });
  
     async function loadPost() {
-   
         const response = await api.get(`/posts/${params.id}`);
         setInitialFormState(response.data);
     }
 
     useEffect(() => {
         loadPost();
-
     },[params.id]);
 
 
@@ -61,8 +59,8 @@ export function EditPostRoute() {
     <Card className="p-1 bg-amber-100 my-1 md:max-w-screen-md md:mx-auto rounded-lg shadow flex flex-col"> 
             <Breadcrumbs links={[
                 {href: '/', label:'Home'},
-                {href:`/ver-publicação/${params.id}`, label:`/ver-publicação/#${params.id}`},
-                {href:`/editar-publicação/${params.id}`, label:`/editar-publicação/#${params.id}`}
+                {href:`/ver-publicação/${params.id}`, label:`Ver-publicação/#${params.id}`},
+                {href:`/editar-publicação/${params.id}`, label:`Editar-publicação/#${params.id}`}
             ]}/>
             <div className="flex relative flex-col">
                 <div className="font-bold uppercase mb-4 text-center text-3xl">{text.title} #{params.id}</div>
@@ -71,7 +69,7 @@ export function EditPostRoute() {
                         className= "m-1 rounded-md px-2 py-1 border focus:border-green-500 outline-none w-full"
                         placeholder={text.contentPlaceholder}
                         name={zo.fields.content()}
-                        defaultValue={InitialFormState.content}
+                        defaultValue={initialFormState.content}
                         />
                         {zo.errors.content(error =>(<ErrorMsg>{error.message}</ErrorMsg>))}
                     <Button type="submit">{text.buttonSubmit}</Button>

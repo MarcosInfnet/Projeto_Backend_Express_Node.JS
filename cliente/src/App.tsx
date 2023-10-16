@@ -4,7 +4,7 @@ import {BrowserRouter,Routes, Route} from 'react-router-dom';
 import {CreatePostRoute} from "./Routes/CreatePostRoute";
 import {ViewPostRoute} from "./Routes/ViewPostRoute";
 import { EditPostRoute } from "./Routes/EditPostRoute";
-
+import { ProfileRoute } from "./Routes/ProfileRoute";
 
 export default function App() {
   return (
@@ -16,6 +16,7 @@ export default function App() {
           <Route path="/criar-publicação" element={<CreatePostRoute/>} />
           <Route path="/ver-publicação/:id" element={<ViewPostRoute/>} />
           <Route path="/editar-publicação/:id" element={<EditPostRoute/>} />
+          <Route path="/perfil/:id" element={<ProfileRoute/>} />
         </Routes>
     </div>
   </BrowserRouter>

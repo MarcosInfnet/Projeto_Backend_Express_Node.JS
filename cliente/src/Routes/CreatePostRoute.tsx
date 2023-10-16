@@ -26,7 +26,7 @@ const zo =useZorm('create-post',postSchema, {
 
 
 return (
-    <form ref={zo.ref} className=" bg-amber-100 flex flex-col py-1 my-1 max-w-screen-md md:mx-auto rounded-md gap-2">
+    <form ref={zo.ref} className=" bg-sky-200 flex flex-col py-1 my-6 max-w-screen-md md:mx-auto rounded-md gap-2">
                 <h1 className="text-gray-600 font-bold uppercase  text-4xl text-center mb-2">Criar publicação</h1>
                 <div className="flex flex-col">
                 <textarea 
@@ -38,7 +38,7 @@ return (
                         <ErrorMsg className="px-2">{error.message}</ErrorMsg>
                         ))}
                 </div>
-                <Button className="bg-sky-700 hover:bg-sky-800 w-28 text-slate-50 uppercase py-1 px-2 rounded-md font-bold m-1">Enviar</Button>
+                <Button className="bg-sky-500 hover:bg-sky-600 w-28 text-slate-50 uppercase py-1 px-2 rounded-md font-bold m-1">Enviar</Button>
     </form> 
 ) 
 }
