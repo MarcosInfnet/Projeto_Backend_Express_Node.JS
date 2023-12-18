@@ -21,15 +21,6 @@ export class UserRepository{
     });
         return user;
 
-        // O codigo acima são os schemas que o prisma utiliza para criar a abstração no DB. E isso é equivalente aos comandos do DB relacional abaixo.
-        // const user = db.prepare(/* sql*/`insert into users (
-            // first_name,
-            // last_name,
-            // avatar,
-            // passwd 
-            // ) values(?,?,?,?) returning*`)
-            // .get(data.first_name, data.last_name, data.avatar, data.passwd);
-            // return user;
         }
     
         async updateUser(userId: number , data : UpdateUserDto){
@@ -56,16 +47,13 @@ export class UserRepository{
                 where: {id: id},
             });
             return user;
-            // const user = db.prepare(/* sql*/`select * from users where id=?`).get(id);
-            // return user;
+
         }
         
         async listUsers() {
             const users = await prisma.users.findMany();
             return users;
 
-            // const users = db.prepare(/* sql*/`select * from users`).all();
-            // return users;
         }
         
 
@@ -89,9 +77,6 @@ export class UserRepository{
             })
             return friend;
 
-
-            // const friend = db.prepare(/* sql*/`insert into friends (user_a , user_b) values (? , ?) returning *`).get(userA , userB);
-            // return friend;
             }
         
         async listFriends(userId : number){
@@ -104,17 +89,6 @@ export class UserRepository{
             order by created_at DESC limit 9;`;
             return friends;
         
-        
-        
-        
-            // const friends = db.prepare (/* sql*/`
-            // select * from users where id in (
-            // select user_b from friends where user_a = ?
-            // UNION
-            // select user_a from friends where user_b = ?
-            // )
-            // order by created_at DESC limit 9;`).all(userId , userId);
-            // return friends;
         }
 
         async updateAvatar(userId: number , avatar: string){

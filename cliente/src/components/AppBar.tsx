@@ -1,4 +1,3 @@
-// import { SlNotebook as Logo} from 'react-icons/sl';
 import { TiHomeOutline as HomeIcon} from 'react-icons/Ti';
 import {LinkButton} from "./LinkButton";
 import { Link , useNavigate } from 'react-router-dom';

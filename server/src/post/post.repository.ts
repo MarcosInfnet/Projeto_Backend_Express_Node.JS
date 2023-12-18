@@ -153,22 +153,6 @@ export class PostRepository{
     })
     return comments;
 
-
-
-  //const comments= db.prepare
-  //(/* sql*/`select 
-  //comments.id,
-  //comments.message,
-  //comments.created_at,
-  //comments.user_id,
-  //users.first_name as users.first_name,
-  //users.last_name as users.last_name,
-  //users.avatar as users.avatar
-  //from comments join users on comments.user_id = users.id 
-  //where post_id=?
-  //order by comments.created_at desc
-  //`).all(postId);
-  //return comments;
   }
   
   async createPostComment(postId : number, data :CreatePostCommentDto) {
@@ -181,12 +165,7 @@ export class PostRepository{
       }
     })
     return comment;
-
-  //await createPostCommentSchema.parseAsync(data);
-  //const comment = db.prepare (/* sql*/`insert into comments (message, post_id , user_id) values (? , ? , ?) returning*`).get(data.message , postId , data.user_id );
-  //return comment;
   }
-  
 
 }
 

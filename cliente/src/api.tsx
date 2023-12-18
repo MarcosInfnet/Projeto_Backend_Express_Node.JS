@@ -81,9 +81,3 @@ api.interceptors.request.use((config) => {
   }
 );
 
-
-
-    // (error) => {
-        // const errors = error.response.data.issues.map((issue) => issue.message);
-            // errors.forEach((error) => toast(error));
-        // });
