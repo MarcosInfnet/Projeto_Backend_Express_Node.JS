@@ -23,7 +23,7 @@ export function PostPageRoute() {
 
   async function loadPosts() {
     const response = await api.get(
-      `/Posts?limit=${pageSize}&offset=${offset}`
+      `/posts?limit=${pageSize}&offset=${offset}`
     );
     const nextPosts = response.data;
     setPostsList(nextPosts);

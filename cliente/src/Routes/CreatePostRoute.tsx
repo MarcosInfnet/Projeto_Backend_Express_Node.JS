@@ -1,14 +1,16 @@
 import {Button} from "../components/Button";
 import { api } from "../api";
 import { ErrorMsg } from "../components/ErrorMsg";
-import { postSchema } from "../postSchema";
+import { PostSchema } from "../postSchema";
 import { useZorm } from "react-zorm";
 import toast from "react-simple-toasts";
 import { useNavigate } from "react-router-dom";
+import { Card } from "../components/Card";
+import { Breadcrumbs } from "../components/Breadcumbs";
 
 export function CreatePostRoute(){
 const navigate = useNavigate();
-const zo =useZorm('create-post',postSchema, {
+const zo =useZorm("create-post", PostSchema , {
     async onValidSubmit(event){
         event.preventDefault();
         const response = await api.post('/posts', event.data);
@@ -26,6 +28,22 @@ const zo =useZorm('create-post',postSchema, {
 
 
 return (
+    <Card>
+      
+        <title>Criar publicação</title>
+    
+      <Breadcrumbs
+        links={[
+          { href: "/", label: "Home" },
+          {
+            href: "/criar-publicacao",
+            label: "Criar publicação",
+          },
+        ]}
+      />
+
+
+
     <form ref={zo.ref} className=" bg-sky-200 flex flex-col py-1 my-6 max-w-screen-md md:mx-auto rounded-md gap-2">
                 <h1 className="text-gray-600 font-bold uppercase  text-4xl text-center mb-2">Criar publicação</h1>
                 <div className="flex flex-col">
@@ -40,6 +58,7 @@ return (
                 </div>
                 <Button className="bg-sky-500 hover:bg-sky-600 w-28 text-slate-50 uppercase py-1 px-2 rounded-md font-bold m-1">Enviar</Button>
     </form> 
+    </Card>
 ) 
 }
 

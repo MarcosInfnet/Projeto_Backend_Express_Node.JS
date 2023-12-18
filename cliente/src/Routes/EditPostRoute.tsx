@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { Card } from "../components/Card"; 
 import { Button } from "../components/Button"; 
 import { ErrorMsg } from "../components/ErrorMsg"; 
-import { postSchema } from "../postSchema"; 
+import { PostSchema } from "../postSchema"; 
 import { useZorm } from "react-zorm";
 import { api } from "../api";
 import { useEffect, useState } from "react";
@@ -30,7 +30,7 @@ export function EditPostRoute() {
     const navigate = useNavigate();
     const [initialFormState, setInitialFormState] = useState(initialPost);
 
-    const zo =useZorm("edit-post", postSchema, {
+    const zo =useZorm("edit-post", PostSchema, {
         async onValidSubmit(event) {
             event.preventDefault();
             const response = await api.put(`/posts/ ${params.id}`, event.data);

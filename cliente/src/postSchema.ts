@@ -5,6 +5,6 @@ const content = z
 .min(16, {message: "O conteudo precisa ter mais de 15 caracteres"})
 .max(270, {message:"O conteudo precisa ter menos de 269 caracteres"});
 
-export const postSchema = z.object ({
+export const PostSchema = z.object ({
     content,
 });
