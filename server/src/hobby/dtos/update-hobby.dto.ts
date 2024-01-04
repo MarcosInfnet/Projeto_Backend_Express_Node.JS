@@ -1,0 +1,1 @@
+export {CreateHobbyDto as UpdateHobbyDto} from "./create-hobby.dto";

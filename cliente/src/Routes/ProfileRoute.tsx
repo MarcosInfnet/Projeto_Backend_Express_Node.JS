@@ -23,6 +23,7 @@ export function ProfileRoute() {
     const [user, setUser] = useState({...initialUser , id: userId});
     const isAuthorized = useGlobalStore((state) => state.isAuthorized);
     const [isFriend, setIsFriend] = useState(null as null | boolean);
+    const [isHobby, setIsHobby] = useState(null as null | boolean);
     const myself = useGlobalStore((state)=> state.user);
 
 async function loadUser(){
@@ -52,20 +53,39 @@ async function removeFriend() {
   }
 }
 
+async function sendScrap(){
+  const message = prompt("Digite a sua mensagem:")
+  const response = await api.post('/scraps' , {
+    message,
+    ownerId:user.id,
 
+  });
+  
+  alert('Scrap enviado com sucesso!')
+}
+
+async function CreateHobby(){
+  const message = prompt ("Insira o seu hobby:")
+  const response = await api.post('/hobbies' , {
+    message,
+    ownerId:user.id,
+  });
+  setIsHobby(true);
+  alert('Hobby inserido com sucesso!')
+}
 
 
 useEffect(() => {
     loadUser();
-    }, [userId]);
+        }, [userId]);
 
 
     useEffect(() => {
       if (isAuthorized) {
         checkIsFriend();
+        CreateHobby();
       }
     }, [isAuthorized, userId]);
-
 
 
 
@@ -92,12 +112,32 @@ useEffect(() => {
                     className="bg-gray-300 hover:bg-gray-400 text-black"
                   >Remover amigo</Button>
                 )}
+
+                {isFriend === true &&(
+                  <Button
+                  onClick={sendScrap}
+                  className="bg-pink-500 hover:bg-pink-600"
+                >Enviar Scrap</Button>
+                )}
+
               </div>
             )}
+          {isHobby !== null && (
+          <div className="flex gap-2 mb-2">
+              {isHobby === true &&(
+                  <Button
+                  onClick={CreateHobby}
+                  className="bg-pink-500 hover:bg-pink-600"
+                >Inserir hobby</Button>
+                )}
+              </div>
+          )}
+
             <h2 className="text-2xl font-bold">
               {user.first_name} {user.last_name}
             </h2>
           </Card>
+
         </div>
         <div className="lg:max-w-[256px]">
           <FriendsCard {...user} />
